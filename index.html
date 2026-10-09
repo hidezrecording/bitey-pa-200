@@ -128,10 +128,16 @@ h1{
 .meter-label{
   position:absolute;z-index:6;left:50%;transform:translate(-50%,-50%);
   padding:0 .2%;background:#111;color:#f5f3ec;border-radius:1px;
-  font-size:clamp(4px,.95cqw,14px);font-weight:700;line-height:1;letter-spacing:.015em;
+  font-size:clamp(3px,.72cqw,10px);font-weight:700;line-height:1;letter-spacing:.015em;
   text-shadow:0 1px 1px #000;pointer-events:none
 }
 .reverb-label{top:21.05%}
+.delay-value{
+  position:absolute;z-index:6;left:var(--x);top:14.46%;transform:translate(-50%,-50%);
+  min-width:1.05em;padding:0 .08em;text-align:center;background:#151515;color:#ecebe6;
+  font-size:clamp(3px,.68cqw,10px);font-weight:700;line-height:1;letter-spacing:0;
+  text-shadow:none;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;pointer-events:none
+}
 .tape-values{
   position:absolute;z-index:6;left:60.52%;top:6.95%;width:2.5%;height:7.6%;
   display:grid;grid-template-rows:repeat(3,1fr);align-items:center;justify-items:center;
@@ -274,6 +280,10 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line-soft);di
       <span class="meter-label reverb-label">REVERB</span>
       <span class="tape-values" aria-hidden="true"><span>1/4&quot;</span><span>1/2&quot;</span><span>1&quot;</span></span>
       <span class="control-overlays" aria-hidden="true">
+        <span class="delay-value" style="--x:44.46%">0</span>
+        <span class="delay-value" style="--x:48.39%">10</span>
+        <span class="delay-value" style="--x:51.25%">−10</span>
+        <span class="delay-value" style="--x:55.67%">+10</span>
         <svg class="knob-pointers" viewBox="0 0 2240 1120" preserveAspectRatio="none">
           <line class="knob-drift" style="--origin:273.06px 128.24px;--base-angle:12deg;--drift-time:27s;--drift-delay:-7s" x1="273.06" y1="89.45" x2="273.06" y2="114.5"/>
           <line class="knob-drift" style="--origin:273.06px 375px;--base-angle:-6deg;--drift-time:31s;--drift-delay:-18s" x1="273.06" y1="336.34" x2="273.06" y2="361.4"/>
