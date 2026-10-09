@@ -120,6 +120,11 @@ h1{
 .control-overlays{position:absolute;inset:8px;z-index:5;pointer-events:none}
 .knob-pointers{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .knob-pointers line{fill:none;stroke:#f7f3e8;stroke-width:4;stroke-linecap:round;shape-rendering:geometricPrecision}
+.knob-pointers .level-pointer{fill:#f7f3e8;stroke:none;shape-rendering:geometricPrecision}
+.knob-pointers .knob-drift{
+  transform-box:view-box;transform-origin:var(--origin);will-change:transform;
+  animation:knobDrift var(--drift-time,32s) ease-in-out var(--drift-delay,0s) infinite
+}
 .clip-led{
   position:absolute;left:var(--x);top:89.25%;width:1.04%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);
   border:0;background:radial-gradient(circle at 38% 34%,#e9f7ff 0 12%,#4ca7ff 42%,#2776c7 100%);
@@ -131,6 +136,10 @@ h1{
 @keyframes needleTop{0%,100%{transform:rotate(-151deg)}27%{transform:rotate(-132deg)}48%{transform:rotate(-142deg)}72%{transform:rotate(-119deg)}}
 @keyframes needleBottom{0%,100%{transform:rotate(-151deg)}32%{transform:rotate(-137deg)}58%{transform:rotate(-124deg)}81%{transform:rotate(-143deg)}}
 @keyframes breathe{50%{opacity:.38;filter:saturate(1.25) brightness(1.14)}}
+@keyframes knobDrift{
+  0%,100%{transform:rotate(calc(var(--base-angle) - 1.8deg))}
+  50%{transform:rotate(calc(var(--base-angle) + 1.8deg))}
+}
 @keyframes clipCycle{
   0%,100%{color:#4ca7ff;background:radial-gradient(circle at 38% 34%,#e9f7ff 0 12%,#4ca7ff 42%,#2776c7 100%)}
   25%{color:#66ef91;background:radial-gradient(circle at 38% 34%,#effff4 0 12%,#66ef91 42%,#2aa454 100%)}
@@ -233,7 +242,7 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line-soft);di
 @media(max-width:560px){
   .shell{padding-left:12px;padding-right:12px}.hero{padding-top:8px}.hardware{margin-top:30px;padding:4px;border-radius:5px}.hardware:before,.hardware:after,.control-overlays{inset:4px}.caption{text-align:left;font-size:10px}.vu-sweep{height:.75px}.vu-sweep:before{width:3px;height:3px;left:-1.5px;top:-1px}.actions .btn{width:100%}.features{margin-top:24px}.story{gap:24px}.donate,.signup{padding:27px 20px}.download-grid{grid-template-columns:1fr}.marquee span{padding:12px 5px;font-size:10px}.owner-note{display:none}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.meter-glow,.vu-sweep,.clip-led{animation:none}.vu-sweep{transform:rotate(-134deg)}.clip-led{color:#66ef91;background:radial-gradient(circle at 38% 34%,#effff4 0 12%,#66ef91 42%,#2aa454 100%)}.js-reveal{transform:none;filter:none;transition:none}.btn{transition:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.meter-glow,.vu-sweep,.clip-led,.knob-drift{animation:none}.knob-drift{transform:rotate(var(--base-angle))}.vu-sweep{transform:rotate(-134deg)}.clip-led{color:#66ef91;background:radial-gradient(circle at 38% 34%,#effff4 0 12%,#66ef91 42%,#2aa454 100%)}.js-reveal{transform:none;filter:none;transition:none}.btn{transition:none}}
 </style>
 </head>
 <body>
@@ -253,24 +262,24 @@ footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line-soft);di
       <span class="vu-sweep one"></span><span class="vu-sweep two"></span>
       <span class="control-overlays" aria-hidden="true">
         <svg class="knob-pointers" viewBox="0 0 2240 1120" preserveAspectRatio="none">
-          <line x1="273.06" y1="89.45" x2="273.06" y2="128.24" transform="rotate(12 273.06 128.24)"/>
+          <line class="knob-drift" style="--origin:273.06px 128.24px;--base-angle:12deg;--drift-time:31s;--drift-delay:-7s" x1="273.06" y1="89.45" x2="273.06" y2="128.24"/>
           <line x1="273.06" y1="336.34" x2="273.06" y2="375.00" transform="rotate(-6 273.06 375.00)"/>
           <line x1="273.06" y1="539.45" x2="273.06" y2="578.03" transform="rotate(-8 273.06 578.03)"/>
-          <line x1="273.06" y1="744.02" x2="273.06" y2="791.06"/>
+          <rect class="level-pointer" x="270.96" y="744.02" width="4.2" height="47.04" rx="2.1"/>
           <line x1="650.05" y1="89.58" x2="650.05" y2="128.24" transform="rotate(-8 650.05 128.24)"/>
-          <line x1="650.05" y1="336.34" x2="650.05" y2="375.00" transform="rotate(8 650.05 375.00)"/>
+          <line class="knob-drift" style="--origin:650.05px 375px;--base-angle:8deg;--drift-time:37s;--drift-delay:-21s" x1="650.05" y1="336.34" x2="650.05" y2="375.00"/>
           <line x1="650.05" y1="539.45" x2="650.05" y2="578.03" transform="rotate(4 650.05 578.03)"/>
-          <line x1="650.05" y1="744.02" x2="650.05" y2="791.06"/>
-          <line x1="1040.03" y1="81.40" x2="1040.03" y2="120.06" transform="rotate(18 1040.03 120.06)"/>
+          <rect class="level-pointer" x="647.95" y="744.02" width="4.2" height="47.04" rx="2.1"/>
+          <line class="knob-drift" style="--origin:1040.03px 120.06px;--base-angle:18deg;--drift-time:34s;--drift-delay:-12s" x1="1040.03" y1="81.40" x2="1040.03" y2="120.06"/>
           <line x1="1199.97" y1="81.40" x2="1199.97" y2="120.06" transform="rotate(-12 1199.97 120.06)"/>
           <line x1="1587.04" y1="89.58" x2="1587.04" y2="128.24"/>
-          <line x1="1587.04" y1="336.34" x2="1587.04" y2="375.00" transform="rotate(12 1587.04 375.00)"/>
+          <line class="knob-drift" style="--origin:1587.04px 375px;--base-angle:12deg;--drift-time:29s;--drift-delay:-17s" x1="1587.04" y1="336.34" x2="1587.04" y2="375.00"/>
           <line x1="1587.04" y1="539.45" x2="1587.04" y2="578.03" transform="rotate(-8 1587.04 578.03)"/>
-          <line x1="1587.04" y1="744.02" x2="1587.04" y2="791.06"/>
-          <line x1="1964.93" y1="89.58" x2="1964.93" y2="128.24" transform="rotate(4 1964.93 128.24)"/>
+          <rect class="level-pointer" x="1584.94" y="744.02" width="4.2" height="47.04" rx="2.1"/>
+          <line class="knob-drift" style="--origin:1964.93px 128.24px;--base-angle:4deg;--drift-time:39s;--drift-delay:-26s" x1="1964.93" y1="89.58" x2="1964.93" y2="128.24"/>
           <line x1="1964.93" y1="336.34" x2="1964.93" y2="375.00" transform="rotate(-10 1964.93 375.00)"/>
-          <line x1="1964.93" y1="539.45" x2="1964.93" y2="578.03"/>
-          <line x1="1964.93" y1="744.02" x2="1964.93" y2="791.06"/>
+          <line class="knob-drift" style="--origin:1964.93px 578.03px;--base-angle:0deg;--drift-time:35s;--drift-delay:-4s" x1="1964.93" y1="539.45" x2="1964.93" y2="578.03"/>
+          <rect class="level-pointer" x="1962.83" y="744.02" width="4.2" height="47.04" rx="2.1"/>
         </svg>
         <span class="clip-led main" style="--x:68.79%"></span>
         <span class="clip-led reverb" style="--x:85.36%"></span>
